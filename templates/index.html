@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot with Emotion & Tone Detection</title>
+  <style>
+    /* Basic Reset & Body Styling */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+    /* Banner with Company Logo */
+    header {
+      background-color: #4A90E2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header img {
+      max-height: 50px;
+      vertical-align: middle;
+    }
+    /* Main Container Layout */
+    .container {
+      display: flex;
+      flex-direction: row;
+      padding: 20px;
+    }
+    /* Chat Section Styling */
+    .chat-section {
+      flex: 2;
+      margin-right: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-display {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .chat-input {
+      display: flex;
+    }
+    .chat-input input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .chat-input button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      background-color: #4A90E2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .chat-input button:hover {
+      background-color: #357ABD;
+    }
+    /* Side Panel Tiles */
+    .side-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .tile {
+      padding: 20px;
+      border-radius: 8px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    /* Emotion Tile: A warm, vibrant gradient */
+    #emotionTile {
+      background: linear-gradient(135deg, #FF6B6B, #FFD93D);
+    }
+    /* Tone Tile: A cool, calming gradient */
+    #toneTile {
+      background: linear-gradient(135deg, #6BCB77, #4D96FF);
+    }
+    .tile h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Company Banner -->
+  <header>
+    <img src="https://via.placeholder.com/150x50?text=Company+Logo" alt="Company Logo" />
+  </header>
+  <!-- Main Content Container -->
+  <div class="container">
+    <!-- Chat Section -->
+    <div class="chat-section">
+      <div class="chat-display" id="chatDisplay">
+        <!-- Chat messages will appear here -->
+      </div>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Type your message here..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+    <!-- Side Panel with Emotion and Tone Tiles -->
+    <div class="side-panel">
+      <div class="tile" id="emotionTile">
+        <h3>Emotion</h3>
+        <p id="emotionText">Neutral</p>
+      </div>
+      <div class="tile" id="toneTile">
+        <h3>Tone</h3>
+        <p id="toneText">Calm</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Function to send a user message to the Flask backend.
+    async function sendMessage() {
+      const inputField = document.getElementById('userInput');
+      const message = inputField.value;
+      if (!message) return;
+      
+      appendMessage('You', message);
+      inputField.value = '';
+      
+      try {
+        const response = await fetch('/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message: message })
+        });
+        const data = await response.json();
+        // Append the bot's reply and update emotion & tone tiles.
+        appendMessage('Bot', data.reply);
+        document.getElementById('emotionText').innerText = data.emotion;
+        document.getElementById('toneText').innerText = data.tone;
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+    
+    // Helper function to append a new message to the chat display.
+    function appendMessage(sender, message) {
+      const chatDisplay = document.getElementById('chatDisplay');
+      const messageElement = document.createElement('div');
+      messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+      chatDisplay.appendChild(messageElement);
+      chatDisplay.scrollTop = chatDisplay.scrollHeight;
+    }
+  </script>
+</body>
+</html>
