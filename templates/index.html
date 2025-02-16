@@ -98,7 +98,7 @@
 <body>
   <!-- Company Banner -->
   <header>
-    <img src="https://via.placeholder.com/150x50?text=Company+Logo" alt="Company Logo" />
+    <img src="{{ url_for('static', filename='images/inflectionai_logo.jpeg') }}" alt="Inflection AI Logo" />
   </header>
   <!-- Main Content Container -->
   <div class="container">
@@ -115,12 +115,12 @@
     <!-- Side Panel with Emotion and Tone Tiles -->
     <div class="side-panel">
       <div class="tile" id="emotionTile">
-        <h3>Emotion</h3>
-        <p id="emotionText">Neutral</p>
+        <h3>User's Emotion</h3>
+        <p id="emotionText">Unknown</p>
       </div>
       <div class="tile" id="toneTile">
-        <h3>Tone</h3>
-        <p id="toneText">Calm</p>
+        <h3>User's Tone</h3>
+        <p id="toneText">Unknown</p>
       </div>
     </div>
   </div>
@@ -131,7 +131,7 @@
       const message = inputField.value;
       if (!message) return;
       
-      appendMessage('You', message);
+      appendMessage('User', message);
       inputField.value = '';
       
       try {
@@ -144,7 +144,7 @@
         });
         const data = await response.json();
         // Append the bot's reply and update emotion & tone tiles.
-        appendMessage('Bot', data.reply);
+        appendMessage('Pi', data.reply);
         document.getElementById('emotionText').innerText = data.emotion;
         document.getElementById('toneText').innerText = data.tone;
       } catch (error) {

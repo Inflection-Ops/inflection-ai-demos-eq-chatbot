@@ -2,16 +2,10 @@ import os
 import json
 from flask import Flask, render_template, request, jsonify
 import asyncio
-from dotenv import load_dotenv
 from utils import get_context, get_response
 
-# load .env file
-load_dotenv()
-# Set up OpenAI API key
-
-
 system_instruction_prompt = """
-You are a helpful chatbot. When given a user input, provide a conversation reply 
+You are a helpful chatbot developed by Inflection AI. When given a user input, provide a conversation reply 
 and also analyze the user's input to detect two things: the emotion and the tone. 
 
 # Output Format (XML):

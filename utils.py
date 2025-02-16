@@ -12,7 +12,7 @@ def parse_xml_response(xml_string: str, keys_to_search: list) -> Dict[str, objec
         result[k] = value
     return result
 
-async def get_response(context, keys, model="inflection_3_productivity") -> Dict[str, object]:
+async def get_response(context, keys, model="inflection_3_pi") -> Dict[str, object]:
     result = await fetch_inflection(context, model)
     return parse_xml_response(result, keys)
 
