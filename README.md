@@ -71,7 +71,7 @@ This repository contains a Python-based chatbot that uses Inflection AI Pi for c
 
 1. Run the Docker container:
     ```sh
-    docker run -d -p 5000:5000 python-pi-chatbot
+    docker run -it -p 5050:5050 python-pi-chatbot
     ```
 
 2. Open your web browser and go to `http://localhost:5000` to start chatting with the bot.

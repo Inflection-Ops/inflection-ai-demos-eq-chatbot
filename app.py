@@ -1,5 +1,3 @@
-import os
-import json
 from flask import Flask, render_template, request, jsonify
 import asyncio
 from utils import get_context, get_response
@@ -12,14 +10,14 @@ and also analyze the user's input to detect two things: the emotion and the tone
 You will respond in a valid XML format with the <parts>, <reply>, <emotion> and <tone> tags following below output format. 
 You don't need to provide explanation or any other information, just return reply, emotion and tone.
 - reply: for the conversational response.
-- emotion: for the detected emotion.
-- tone: for the detected tone.
+- emotion: a single word describing the detected emotion.
+- tone: a single word describing the detected tone.
 
 # Format of the Output
 <parts>
     <reply>The reply to the user message</reply>
-    <emotion>The emotion of the user based on their message</emotion>
-    <tone>The tone of the user based on their message</tone>
+    <emotion>The emotion of the user based on their message summerized in a single word</emotion>
+    <tone>The tone of the user based on their message summerized in a single word</tone>
 </parts>
 
 """
@@ -53,4 +51,4 @@ async def fetch_response(context):
     return reply,emotion,tone
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5050)

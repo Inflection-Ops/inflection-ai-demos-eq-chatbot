@@ -49,12 +49,16 @@
     }
     .chat-input {
       display: flex;
+      flex-direction: column;
+      height: 30%; /* One-third of the chat-section */
     }
-    .chat-input input[type="text"] {
-      flex: 1;
+    .chat-input textarea {
+      flex: 1; /* Makes the textarea fill available space */
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 4px;
+      resize: none; /* Prevents manual resizing */
+      font-size: 16px;
     }
     .chat-input button {
       margin-left: 10px;
@@ -64,6 +68,7 @@
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      align-self: flex-end; /* Aligns button to bottom */
     }
     .chat-input button:hover {
       background-color: #357ABD;
@@ -84,11 +89,11 @@
     }
     /* Emotion Tile: A warm, vibrant gradient */
     #emotionTile {
-      background: linear-gradient(135deg, #FF6B6B, #FFD93D);
+      background: linear-gradient(135deg, #6f7a71, #c1c6ce);
     }
     /* Tone Tile: A cool, calming gradient */
     #toneTile {
-      background: linear-gradient(135deg, #6BCB77, #4D96FF);
+      background: linear-gradient(135deg, #6f7a71, #c1c6ce);
     }
     .tile h3 {
       margin-top: 0;
@@ -108,7 +113,7 @@
         <!-- Chat messages will appear here -->
       </div>
       <div class="chat-input">
-        <input type="text" id="userInput" placeholder="Type your message here..." />
+        <textarea id="userInput" placeholder="Type your message here..."></textarea>
         <button onclick="sendMessage()">Send</button>
       </div>
     </div>
