@@ -76,6 +76,9 @@ This repository contains a Python-based chatbot that uses Inflection AI Pi for c
 
 2. Open your web browser and go to `http://localhost:5000` to start chatting with the bot.
 
+## Running the deployed chatbot remotely
+The chatbot is available temporarily on the web through this [link](https://inflection-ai-demos-eq-chatbot.onrender.com) 
+
 ## Dependencies
 
 - Flask==3.1.0
