@@ -16,3 +16,4 @@ instance/
 .venv/
 static/.DS_Store
 .DS_Store
+.env
